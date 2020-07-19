@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JTextArea;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import data.*;
 
 public class Template extends JFrame {
 
@@ -40,7 +42,8 @@ public class Template extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Template.class.getResource("/source/developer.png")));
 		setTitle("Template");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 486, 360);
+		//setBounds(100, 100, 486, 360);
+		setBounds(100, 100, 600, 500);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		contentPane = new JPanel();
@@ -49,7 +52,7 @@ public class Template extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblCreateYourTemplate = new JLabel("Create your template");
-		lblCreateYourTemplate.setBounds(10, 11, 450, 24);
+		lblCreateYourTemplate.setBounds(10, 11, 565, 24);
 		lblCreateYourTemplate.setFont(new Font("Trebuchet MS", Font.BOLD, 17));
 		lblCreateYourTemplate.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblCreateYourTemplate);
@@ -61,14 +64,15 @@ public class Template extends JFrame {
 				dispose();
 			}
 		});
-		btnSave.setBounds(190, 273, 89, 37);
+		btnSave.setBounds(248, 408, 89, 37);
 		btnSave.setForeground(new Color(255, 255, 255));
 		btnSave.setBackground(new Color(0, 255, 0));
 		btnSave.setFont(new Font("Trebuchet MS", Font.PLAIN, 17));
 		contentPane.add(btnSave);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 46, 450, 216);
+		//scrollPane.setBounds(10, 46, 450, 216);
+		scrollPane.setBounds(10, 46, 565, 350);
 		contentPane.add(scrollPane);
 		
 		
@@ -79,10 +83,14 @@ public class Template extends JFrame {
 		scrollPane.setViewportView(txtTemplate);
 	}
 	
+	/*
+	 * parse text from template
+	 */
+	
 	String getTemplateText()
 	{
 		String contentString = "";
-		File  inputFile = new File("C:\\ProgAst_Base_Folder\\template.txt");
+		File  inputFile = new File("template.txt");
 		try {
 			FileReader fileReader = new FileReader(inputFile);
 			Scanner scanner = new Scanner(fileReader);
@@ -94,27 +102,30 @@ public class Template extends JFrame {
 				fileReader.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Something goes wrong :(");
 			}
 			//System.out.println(contentString);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Something goes wrong :(");
 		}
 		return contentString;
 	}
 	
+	/*
+	 * saving template
+	 */
+	
 	void saveTemplate()
 	{
 		String contentString = txtTemplate.getText();
-		File filepathFile = new File("C:\\ProgAst_Base_Folder\\template.txt");
+		File filepathFile = new File("template.txt");
 		try {
 			FileWriter fileWriter = new FileWriter(filepathFile);
 			fileWriter.write(contentString);
 			fileWriter.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Template does't save. Something goes wrong :(");
 		}
 	}
 }
